@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api/authApi";
-import { setAuthToken } from "../auth";
-import { useNavigate } from "react-router-dom";
+import { setAuthData } from "../auth";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -20,11 +20,12 @@ const RegisterPage: React.FC = () => {
         setLoading(true);
         setError("");
         try {
-            const { token } = await register(name, email, password);
-            setAuthToken(token);
+            const auth = await register(name, email, password);
+            setAuthData(auth);
             navigate("/wall");
-        } catch (e) {
-            setError("Ошибка регистрации.");
+        } catch {
+            setError("Не удалось создать аккаунт. Возможно, email уже занят.");
+        } finally {
             setLoading(false);
         }
     };
@@ -32,34 +33,45 @@ const RegisterPage: React.FC = () => {
     return (
         <>
             <Header />
-            <main>
-                <h2>Регистрация</h2>
-                {error && <div className="error">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <Input
-                        placeholder="Имя"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        required
-                    />
-                    <Input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        required
-                    />
-                    <Input
-                        type="password"
-                        placeholder="Пароль"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                    />
-                    <Button disabled={loading} type="submit">
-                        {loading ? <Loader /> : "Зарегистрироваться"}
-                    </Button>
-                </form>
+            <main className="page auth-page">
+                <section className="auth-panel">
+                    <p className="eyebrow">Новый аккаунт</p>
+                    <h1>Создать профиль</h1>
+                    <form className="form-stack" onSubmit={handleSubmit}>
+                        <label>
+                            Имя
+                            <Input value={name} onChange={e => setName(e.target.value)} required />
+                        </label>
+                        <label>
+                            Email
+                            <Input
+                                autoComplete="email"
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Пароль
+                            <Input
+                                autoComplete="new-password"
+                                minLength={6}
+                                type="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {error && <div className="error">{error}</div>}
+                        <Button disabled={loading} type="submit">
+                            {loading ? <Loader /> : "Зарегистрироваться"}
+                        </Button>
+                    </form>
+                    <p className="muted">
+                        Уже есть аккаунт? <Link to="/login">Войти</Link>
+                    </p>
+                </section>
             </main>
         </>
     );

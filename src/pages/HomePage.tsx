@@ -1,14 +1,6 @@
 import React from "react";
-import Header from "../components/Header";
+import { Navigate } from "react-router-dom";
 
-const HomePage: React.FC = () => (
-    <>
-        <Header />
-        <main>
-            <h2>Добро пожаловать в LoveWall!</h2>
-            <p>Стена сообщений для всех, кто пребывает в любви.</p>
-        </main>
-    </>
-);
+const HomePage: React.FC = () => <Navigate to="/wall" replace />;
 
 export default HomePage;

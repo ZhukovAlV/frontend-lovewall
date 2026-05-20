@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/authApi";
-import { setAuthToken } from "../auth";
-import { useNavigate } from "react-router-dom";
+import { setAuthData } from "../auth";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -19,11 +19,12 @@ const LoginPage: React.FC = () => {
         setLoading(true);
         setError("");
         try {
-            const { token } = await login(email, password);
-            setAuthToken(token);
+            const auth = await login(email, password);
+            setAuthData(auth);
             navigate("/wall");
-        } catch (e) {
-            setError("Неверный логин/пароль");
+        } catch {
+            setError("Не удалось войти. Проверьте email и пароль.");
+        } finally {
             setLoading(false);
         }
     };
@@ -31,31 +32,44 @@ const LoginPage: React.FC = () => {
     return (
         <>
             <Header />
-            <main>
-                <h2>Вход</h2>
-                {error && <div className="error">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <Input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        required
-                    />
-                    <Input
-                        type="password"
-                        placeholder="Пароль"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                    />
-                    <Button disabled={loading} type="submit">
-                        {loading ? <Loader /> : "Войти"}
-                    </Button>
-                </form>
-                <p>Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+            <main className="page auth-page">
+                <section className="auth-panel">
+                    <p className="eyebrow">Добро пожаловать</p>
+                    <h1>Вход в LoveWall</h1>
+                    <form className="form-stack" onSubmit={handleSubmit}>
+                        <label>
+                            Email
+                            <Input
+                                autoComplete="email"
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Пароль
+                            <Input
+                                autoComplete="current-password"
+                                minLength={6}
+                                type="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {error && <div className="error">{error}</div>}
+                        <Button disabled={loading} type="submit">
+                            {loading ? <Loader /> : "Войти"}
+                        </Button>
+                    </form>
+                    <p className="muted">
+                        Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+                    </p>
+                </section>
             </main>
         </>
     );
 };
+
 export default LoginPage;
