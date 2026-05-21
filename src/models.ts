@@ -11,6 +11,9 @@ export interface User {
     messagesCount?: number;
     likesCount?: number;
     subscribersCount?: number;
+    followersCount?: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface WallMessage {
@@ -25,6 +28,28 @@ export interface WallMessage {
     createdAt: string;
     updatedAt?: string;
     likes: number;
+    commentsCount?: number;
+
+    // User info (populated from user service)
+    userName?: string;
+    userAvatarUrl?: string;
+}
+
+export interface Comment {
+    id: number;
+    messageId: number;
+    userId: number;
+    text: string;
+    createdAt: string;
+    updatedAt?: string;
+
+    // User info (populated from user service)
+    userName?: string;
+    userAvatarUrl?: string;
+}
+
+export interface CreateCommentRequest {
+    text: string;
 }
 
 export interface AuthData {
@@ -46,4 +71,21 @@ export interface CreateWallMessage {
     city?: string;
     mediaUrl?: string;
     isPublic?: boolean;
+}
+
+export interface LikeStatus {
+    isLiked: boolean;
+    likesCount: number;
+}
+
+export interface FollowStatus {
+    isFollowing: boolean;
+}
+
+export interface MediaUploadResponse {
+    success: string;
+    fileUrl: string;
+    fileName: string;
+    fileSize: string;
+    contentType: string;
 }

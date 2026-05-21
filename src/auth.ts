@@ -19,6 +19,15 @@ export function getUserName(): string | null {
     return localStorage.getItem("userName");
 }
 
+export function getCurrentUserId(): number | null {
+    const userId = localStorage.getItem("userId");
+    return userId ? parseInt(userId, 10) : null;
+}
+
+export function getUserEmail(): string | null {
+    return localStorage.getItem("userEmail");
+}
+
 export function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");

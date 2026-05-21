@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { createMessage, fetchWall, likeMessage } from "../api/wallApi";
+import { createMessage, fetchWall } from "../api/wallApi";
 import { WallFilters, WallMessage } from "../models";
 import { isLoggedIn } from "../auth";
 import Header from "../components/Header";
 import WallFeed from "../components/WallFeed";
 import Loader from "../components/Loader";
 import Button from "../components/Button";
+import MediaUpload from "../components/MediaUpload";
 
 const categories = [
     { value: "", label: "Все категории" },
@@ -21,10 +22,10 @@ const WallPage: React.FC = () => {
     const [filters, setFilters] = useState<WallFilters>({});
     const [loading, setLoading] = useState(true);
     const [publishing, setPublishing] = useState(false);
-    const [likingId, setLikingId] = useState<number | null>(null);
     const [text, setText] = useState("");
     const [category, setCategory] = useState("love");
     const [city, setCity] = useState("");
+    const [mediaUrl, setMediaUrl] = useState("");
     const [error, setError] = useState("");
 
     const loggedIn = isLoggedIn();
@@ -62,9 +63,11 @@ const WallPage: React.FC = () => {
                 text: text.trim(),
                 category,
                 city: city.trim() || undefined,
+                mediaUrl: mediaUrl || undefined,
                 isPublic: true
             });
             setText("");
+            setMediaUrl("");
             await loadMessages(filters);
         } catch {
             setError("Не удалось опубликовать сообщение.");
@@ -73,14 +76,17 @@ const WallPage: React.FC = () => {
         }
     };
 
-    const handleLike = async (id: number) => {
-        setLikingId(id);
-        try {
-            const updated = await likeMessage(id);
-            setMessages(current => current.map(message => (message.id === id ? updated : message)));
-        } finally {
-            setLikingId(null);
-        }
+    const handleMediaUploaded = (fileUrl: string) => {
+        setMediaUrl(fileUrl);
+        setError("");
+    };
+
+    const handleMediaError = (errorMessage: string) => {
+        setError(errorMessage);
+    };
+
+    const removeMedia = () => {
+        setMediaUrl("");
     };
 
     useEffect(() => {
@@ -147,6 +153,29 @@ const WallPage: React.FC = () => {
                                 required
                                 value={text}
                             />
+
+                            {mediaUrl && (
+                                <div className="media-preview">
+                                    <div className="media-preview-content">
+                                        {mediaUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (
+                                            <img src={mediaUrl} alt="Предпросмотр" className="preview-image" />
+                                        ) : (
+                                            <div className="preview-file">
+                                                📎 Прикрепленный файл
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="remove-media"
+                                        onClick={removeMedia}
+                                        title="Удалить вложение"
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+                            )}
+
                             <div className="composer-controls">
                                 <select value={category} onChange={e => setCategory(e.target.value)}>
                                     {categories.slice(1).map(item => (
@@ -156,6 +185,12 @@ const WallPage: React.FC = () => {
                                     ))}
                                 </select>
                                 <input value={city} onChange={e => setCity(e.target.value)} placeholder="Город" />
+
+                                <MediaUpload
+                                    onMediaUploaded={handleMediaUploaded}
+                                    onError={handleMediaError}
+                                />
+
                                 <Button disabled={publishing} type="submit">
                                     {publishing ? "Публикуем..." : "Опубликовать"}
                                 </Button>
@@ -173,7 +208,7 @@ const WallPage: React.FC = () => {
                 </section>
 
                 {error && <div className="error">{error}</div>}
-                {loading ? <Loader /> : <WallFeed messages={messages} onLike={handleLike} likingId={likingId} />}
+                {loading ? <Loader /> : <WallFeed messages={messages} />}
             </main>
         </>
     );
