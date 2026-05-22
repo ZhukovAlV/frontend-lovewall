@@ -1,0 +1,160 @@
+.create-couple {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-couple-header {
+  text-align: center;
+  margin-bottom: 30px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.create-couple-form {
+  .error-message {
+    background: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .form-section {
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 20px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e91e63;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #e91e63;
+        box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
+      }
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    small {
+      display: block;
+      color: #666;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 30px;
+
+    .create-button {
+      background: linear-gradient(135deg, #e91e63, #ad1457);
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #ad1457, #880e4f);
+      }
+    }
+  }
+}
+
+.create-couple-success {
+  text-align: center;
+  padding: 40px 20px;
+
+  .success-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #27ae60;
+    margin: 0 0 15px 0;
+  }
+
+  p {
+    color: #666;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+
+    &:last-child {
+      font-weight: 500;
+      color: #e91e63;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .create-couple {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .create-couple-header h1 {
+    font-size: 24px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}

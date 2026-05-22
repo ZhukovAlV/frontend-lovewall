@@ -1,0 +1,350 @@
+.couples-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.couples-list-header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    color: #666;
+    font-size: 18px;
+    margin: 0 0 30px 0;
+  }
+
+  .search-section {
+    max-width: 400px;
+    margin: 0 auto;
+
+    .search-input-container {
+      position: relative;
+
+      .search-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 25px;
+        font-size: 16px;
+        transition: border-color 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: #e91e63;
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      .search-spinner {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+.couples-list-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 18px;
+}
+
+.error-message {
+  background: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    background: none;
+    border: none;
+    color: #c33;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    margin-left: 10px;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.couples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #ddd;
+
+  .empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.couple-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .couple-card-header {
+    position: relative;
+    height: 160px;
+
+    .couple-cover {
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .couple-cover-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e91e63, #ad1457);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        font-size: 48px;
+        opacity: 0.8;
+      }
+    }
+
+    .couple-avatars {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid white;
+        overflow: hidden;
+        background: #f0f0f0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .avatar-placeholder {
+          width: 100%;
+          height: 100%;
+          background: #e91e63;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .couple-card-content {
+    padding: 30px 20px 20px;
+
+    .couple-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 12px 0;
+      text-align: center;
+    }
+
+    .couple-bio {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 16px 0;
+      text-align: center;
+    }
+
+    .couple-meta {
+      .meta-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 14px;
+
+        .meta-label {
+          color: #666;
+        }
+
+        .meta-value {
+          color: #333;
+          font-weight: 500;
+        }
+      }
+
+      .couple-stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #f0f0f0;
+
+        .stat {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 14px;
+
+          .stat-icon {
+            font-size: 16px;
+          }
+
+          .stat-value {
+            font-weight: 500;
+            color: #333;
+          }
+        }
+      }
+    }
+
+    .couple-card-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #f0f0f0;
+      text-align: center;
+
+      .created-date {
+        font-size: 12px;
+        color: #888;
+      }
+    }
+  }
+}
+
+.couples-list-footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .couples-list {
+    padding: 15px;
+  }
+
+  .couples-list-header {
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .couples-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .couple-card {
+    .couple-card-header {
+      height: 140px;
+
+      .couple-avatars .avatar {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .couple-card-content {
+      padding: 25px 15px 15px;
+
+      .couple-name {
+        font-size: 16px;
+      }
+
+      .couple-meta .couple-stats {
+        gap: 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .couples-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .couple-card .couple-card-header {
+    height: 120px;
+  }
+}

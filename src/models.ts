@@ -16,6 +16,58 @@ export interface User {
     updatedAt?: string;
 }
 
+export interface Couple {
+    id: number;
+    coupleName?: string;
+    relationshipStartDate?: string;
+    anniversaryDate?: string;
+    bio?: string;
+    coverPhotoUrl?: string;
+    status: CoupleStatus;
+    privacy: CouplePrivacy;
+    createdAt: string;
+    confirmedAt?: string;
+    user1: User;
+    user2: User;
+    sharedMessagesCount: number;
+    sharedPhotosCount: number;
+    likesCount: number;
+    createdByUserId: number;
+    isPending: boolean;
+    isActive: boolean;
+}
+
+export enum CoupleStatus {
+    PENDING = 'PENDING',
+    ACTIVE = 'ACTIVE',
+    PAUSED = 'PAUSED',
+    ENDED = 'ENDED'
+}
+
+export enum CouplePrivacy {
+    PUBLIC = 'PUBLIC',
+    PRIVATE = 'PRIVATE',
+    FRIENDS = 'FRIENDS'
+}
+
+export interface CreateCoupleRequest {
+    partnerUserId: number;
+    coupleName?: string;
+    relationshipStartDate?: string;
+    anniversaryDate?: string;
+    bio?: string;
+    coverPhotoUrl?: string;
+}
+
+export interface UpdateCoupleRequest {
+    coupleName?: string;
+    relationshipStartDate?: string;
+    anniversaryDate?: string;
+    bio?: string;
+    coverPhotoUrl?: string;
+    privacy?: CouplePrivacy;
+}
+
 export interface WallMessage {
     id: number;
     userId: number;
