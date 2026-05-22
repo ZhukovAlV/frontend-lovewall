@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import CoupleStatus from "../components/CoupleStatus";
 
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -58,6 +59,9 @@ const ProfilePage: React.FC = () => {
                         {user?.email && <p className="muted">{user.email}</p>}
                     </div>
                 </section>
+
+                {/* Статус пары */}
+                <CoupleStatus />
 
                 {loading && <Loader />}
 

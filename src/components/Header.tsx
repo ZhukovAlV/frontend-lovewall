@@ -18,6 +18,7 @@ const Header: React.FC = () => {
 
             <nav className="nav">
                 <NavLink to="/wall">Стена</NavLink>
+                {loggedIn && <NavLink to="/couples">💕 Пары</NavLink>}
                 {loggedIn && <NavLink to="/profile">Профиль</NavLink>}
                 {loggedIn ? (
                     <>
