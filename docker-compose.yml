@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Frontend with Nginx
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lovewall-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - lovewall-network
+    volumes:
+      - ./uploads:/var/www/uploads:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  lovewall-network:
+    driver: bridge

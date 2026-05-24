@@ -1,30 +1,33 @@
-FROM node:18-alpine as build
+# ===== Build stage =====
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json yarn.lock ./
+# Install dependencies separately to leverage Docker layer caching
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN yarn install --frozen-lockfile
-
-# Copy source code
+# Copy source and build
 COPY . .
+RUN npm run build
 
-# Build the application
-RUN yarn build
+# ===== Production stage =====
+FROM nginx:alpine AS production
 
-# Production stage
-FROM nginx:alpine
+# Remove default nginx site config
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy built files
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy nginx configuration
+# Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port
+# Copy built assets from the build stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port (matches nginx.conf `listen 3000;`)
 EXPOSE 3000
 
-# Start nginx
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1
+
 CMD ["nginx", "-g", "daemon off;"]
