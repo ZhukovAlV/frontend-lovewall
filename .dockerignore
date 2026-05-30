@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+logs
+uploads
+.git
+.idea
+.vscode
+.env
+.env.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+Dockerfile
+docker-compose.yml
+README.md
