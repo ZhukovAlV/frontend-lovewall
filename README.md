@@ -6,7 +6,8 @@ React-приложение для LoveWall. Минималистичный ин�
 
 1. `yarn install`
 2. Создайте `.env` с адресом backend:  
-VITE_API_URL=http://localhost:8080
+   VITE_API_AUTH_SERVICE_URL=http://localhost:8080
+   VITE_API_USER_SERVICE_URL=http://localhost:8081
 3. `npm run build`
 3. `npm run start`
 

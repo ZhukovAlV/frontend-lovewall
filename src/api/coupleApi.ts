@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Couple, CreateCoupleRequest, UpdateCoupleRequest } from '../models';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8081';
+const API_BASE_URL = import.meta.env.VITE_API_USER_SERVICE_URL?.trim() || 'http://localhost:8081';
 
 // Создать экземпляр axios с базовой конфигурацией
 const api = axios.create({
