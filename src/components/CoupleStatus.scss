@@ -1,0 +1,267 @@
+.couple-status {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #e91e63;
+
+  .status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .view-profile-link,
+    .manage-invitations-link {
+      color: #e91e63;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 15px;
+      border: 1px solid #e91e63;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #e91e63;
+        color: white;
+      }
+    }
+  }
+
+  &.loading {
+    text-align: center;
+    color: #666;
+  }
+
+  &.active {
+    border-left-color: #27ae60;
+
+    .couple-info {
+      .couple-avatars {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+
+        .partner-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          border: 2px solid #27ae60;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #27ae60;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+          }
+        }
+
+        .heart {
+          font-size: 20px;
+          animation: heartbeat 1.5s ease-in-out infinite;
+        }
+      }
+
+      .couple-details {
+        text-align: center;
+
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+          color: #333;
+          margin: 0 0 8px 0;
+        }
+
+        .relationship-date {
+          color: #666;
+          font-size: 14px;
+          margin: 0 0 12px 0;
+        }
+
+        .couple-stats {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          font-size: 14px;
+
+          span {
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+
+  &.pending {
+    border-left-color: #f39c12;
+
+    .invitations-preview {
+      .invitation-preview {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: #fff8e1;
+        border-radius: 8px;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .invitation-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          overflow: hidden;
+          border: 2px solid #f39c12;
+          flex-shrink: 0;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #f39c12;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+          }
+        }
+
+        .invitation-info {
+          flex: 1;
+
+          p {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            color: #333;
+
+            &.couple-name {
+              color: #f39c12;
+              font-weight: 500;
+              font-style: italic;
+            }
+          }
+        }
+      }
+
+      .more-invitations {
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        margin: 10px 0 0 0;
+        font-style: italic;
+      }
+    }
+  }
+
+  &.empty {
+    border-left-color: #95a5a6;
+
+    .empty-state {
+      text-align: center;
+
+      p {
+        color: #666;
+        margin: 0 0 20px 0;
+        line-height: 1.5;
+      }
+
+      .couple-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+
+        .create-couple-btn,
+        .browse-couples-btn {
+          padding: 10px 20px;
+          border-radius: 20px;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 14px;
+          transition: all 0.2s ease;
+        }
+
+        .create-couple-btn {
+          background: linear-gradient(135deg, #e91e63, #ad1457);
+          color: white;
+
+          &:hover {
+            background: linear-gradient(135deg, #ad1457, #880e4f);
+            transform: translateY(-1px);
+          }
+        }
+
+        .browse-couples-btn {
+          background: white;
+          color: #e91e63;
+          border: 1px solid #e91e63;
+
+          &:hover {
+            background: #e91e63;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .couple-status {
+    padding: 15px;
+
+    .status-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      .view-profile-link,
+      .manage-invitations-link {
+        align-self: stretch;
+        text-align: center;
+      }
+    }
+
+    &.empty .empty-state .couple-actions {
+      flex-direction: column;
+    }
+  }
+}

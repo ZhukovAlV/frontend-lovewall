@@ -1,0 +1,172 @@
+.couple-invitations-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffeef3 0%, #fff5f8 100%);
+  padding: 20px 0;
+}
+
+.page-header {
+  margin-bottom: 30px;
+
+  .header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    .back-link,
+    .create-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      background: white;
+      color: #e91e63;
+
+      &:hover {
+        background: #e91e63;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+      }
+    }
+
+    .create-link {
+      background: linear-gradient(135deg, #e91e63, #ad1457);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(135deg, #ad1457, #880e4f);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+      }
+    }
+  }
+}
+
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.page-tips {
+  max-width: 800px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+
+  .tips-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+
+    .tips-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .tip {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #e91e63;
+
+        .tip-icon {
+          font-size: 20px;
+          flex-shrink: 0;
+        }
+
+        p {
+          margin: 0;
+          color: #666;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .couple-invitations-page {
+    padding: 15px 0;
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+
+    .header-content {
+      padding: 0 15px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+
+      .back-link,
+      .create-link {
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .page-content {
+    padding: 0 15px;
+  }
+
+  .page-tips {
+    margin-top: 30px;
+    padding: 0 15px;
+
+    .tips-content {
+      padding: 20px;
+
+      h3 {
+        font-size: 18px;
+      }
+
+      .tips-list .tip {
+        padding: 12px;
+
+        .tip-icon {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header .header-content {
+    .back-link,
+    .create-link {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+.couple-profile-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffeef3 0%, #fff5f8 100%);
+  padding: 20px 0;
+}
+
+.page-header {
+  margin-bottom: 30px;
+
+  .header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: white;
+      color: #e91e63;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #e91e63;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+      }
+    }
+  }
+}
+
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .couple-profile-page {
+    padding: 15px 0;
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+
+    .header-content {
+      padding: 0 15px;
+    }
+  }
+
+  .page-content {
+    padding: 0 15px;
+  }
+}
