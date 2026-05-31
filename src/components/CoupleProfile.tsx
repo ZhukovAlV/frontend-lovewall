@@ -128,7 +128,8 @@ const CoupleProfile: React.FC = () => {
     }
 
     const partner = getPartner();
-    const canEdit = isUserInCouple() && couple.isActive;
+    const isActiveCouple = couple.status === "ACTIVE" || couple.isActive;
+    const canEdit = isUserInCouple() && isActiveCouple;
     const relationshipDuration = calculateRelationshipDuration();
 
     return (
@@ -264,7 +265,7 @@ const CoupleProfile: React.FC = () => {
                     </div>
                 )}
 
-                {couple.isActive && isUserInCouple() && (
+                {isActiveCouple && isUserInCouple() && (
                     <CoupleWall
                         coupleId={couple.id}
                         members={{

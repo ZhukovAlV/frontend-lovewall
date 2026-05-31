@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Couple } from "../models";
 import { getPendingInvitations, getSentInvitations, acceptCoupleInvitation, rejectCoupleInvitation } from "../api/coupleApi";
 import { formatDate } from "../utils/dateUtils";
@@ -6,6 +7,7 @@ import Button from "./Button";
 import "./CoupleInvitations.scss";
 
 const CoupleInvitations: React.FC = () => {
+    const navigate = useNavigate();
     const [pendingInvitations, setPendingInvitations] = useState<Couple[]>([]);
     const [sentInvitations, setSentInvitations] = useState<Couple[]>([]);
     const [loading, setLoading] = useState(true);
@@ -41,8 +43,8 @@ const CoupleInvitations: React.FC = () => {
 
         try {
             await acceptCoupleInvitation(coupleId);
-            // Обновляем список приглашений
-            await loadInvitations();
+            // Переходим в профиль пары, где доступна общая стена
+            navigate(`/couples/${coupleId}`);
         } catch (err) {
             console.error("Failed to accept invitation:", err);
             setError("Ошибка при принятии приглашения");
