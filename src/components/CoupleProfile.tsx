@@ -5,6 +5,7 @@ import { getCoupleById, updateCouple, endCouple } from "../api/coupleApi";
 import { getCurrentUserId, isLoggedIn } from "../auth";
 import { formatDate } from "../utils/dateUtils";
 import Button from "./Button";
+import CoupleWall from "./CoupleWall";
 import "./CoupleProfile.scss";
 
 const CoupleProfile: React.FC = () => {
@@ -261,6 +262,16 @@ const CoupleProfile: React.FC = () => {
                             }
                         </p>
                     </div>
+                )}
+
+                {couple.isActive && isUserInCouple() && (
+                    <CoupleWall
+                        coupleId={couple.id}
+                        members={{
+                            [couple.user1.id]: couple.user1.name,
+                            [couple.user2.id]: couple.user2.name,
+                        }}
+                    />
                 )}
             </div>
         </div>

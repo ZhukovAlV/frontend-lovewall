@@ -20,6 +20,20 @@ export async function deleteMessage(id: number): Promise<void> {
     await http.delete(`/api/wall/${id}`);
 }
 
+// Couple-only wall (visible only to the two members of the couple)
+export async function fetchCoupleWall(coupleId: number): Promise<WallMessage[]> {
+    const { data } = await http.get(`/api/wall/couple/${coupleId}`);
+    return data;
+}
+
+export async function createCoupleMessage(
+    coupleId: number,
+    payload: CreateWallMessage
+): Promise<WallMessage> {
+    const { data } = await http.post(`/api/wall/couple/${coupleId}`, payload);
+    return data;
+}
+
 // Enhanced likes system
 export async function toggleLike(id: number): Promise<{ isLiked: boolean; likesCount: number }> {
     const { data } = await http.post(`/api/wall/${id}/like`);

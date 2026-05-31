@@ -51,7 +51,8 @@ export enum CouplePrivacy {
 }
 
 export interface CreateCoupleRequest {
-    partnerUserId: number;
+    partnerEmail: string;
+    partnerUserId?: number;
     coupleName?: string;
     relationshipStartDate?: string;
     anniversaryDate?: string;
@@ -71,6 +72,7 @@ export interface UpdateCoupleRequest {
 export interface WallMessage {
     id: number;
     userId: number;
+    coupleId?: number;
     category?: string;
     text: string;
     mediaUrl?: string;

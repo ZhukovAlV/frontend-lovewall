@@ -12,14 +12,13 @@ interface CreateCoupleProps {
 const CreateCouple: React.FC<CreateCoupleProps> = ({ onCoupleCreated }) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState<CreateCoupleRequest>({
-        partnerUserId: 0,
+        partnerEmail: "",
         coupleName: "",
         relationshipStartDate: "",
         anniversaryDate: "",
         bio: "",
         coverPhotoUrl: ""
     });
-    const [partnerEmail, setPartnerEmail] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
@@ -30,27 +29,30 @@ const CreateCouple: React.FC<CreateCoupleProps> = ({ onCoupleCreated }) => {
         setError(null);
 
         try {
-            // В реальном приложении здесь нужно сначала найти пользователя по email
-            // Пока используем прямой ввод ID
-            if (!formData.partnerUserId || formData.partnerUserId <= 0) {
-                throw new Error("Укажите корректный ID партнера");
+            const email = formData.partnerEmail.trim();
+            if (!email) {
+                throw new Error("Укажите email партнёра");
             }
 
-            const couple = await createCoupleInvitation(formData);
+            await createCoupleInvitation({ ...formData, partnerEmail: email });
             setSuccess(true);
 
             if (onCoupleCreated) {
                 onCoupleCreated();
             }
 
-            // Перенаправляем на страницу пары через 2 секунды
+            // Перенаправляем к приглашениям через 2 секунды
             setTimeout(() => {
-                navigate(`/couples/${couple.id}`);
+                navigate(`/couples/invitations`);
             }, 2000);
 
         } catch (err: any) {
             console.error("Failed to create couple:", err);
-            setError(err.response?.data?.message || err.message || "Ошибка при создании пары");
+            if (err.response?.status === 404) {
+                setError("Пользователь с таким email не найден. Проверьте адрес и попробуйте снова.");
+            } else {
+                setError(err.response?.data?.message || err.message || "Ошибка при создании пары");
+            }
         } finally {
             setLoading(false);
         }
@@ -68,8 +70,8 @@ const CreateCouple: React.FC<CreateCoupleProps> = ({ onCoupleCreated }) => {
             <div className="create-couple-success">
                 <div className="success-icon">💕</div>
                 <h2>Приглашение отправлено!</h2>
-                <p>Ваш партнер получит уведомление о приглашении в пару.</p>
-                <p>Перенаправляем на страницу пары...</p>
+                <p>Партнёр увидит приглашение в разделе «Приглашения в пары» и сможет его принять.</p>
+                <p>Перенаправляем к приглашениям...</p>
             </div>
         );
     }
@@ -96,25 +98,12 @@ const CreateCouple: React.FC<CreateCoupleProps> = ({ onCoupleCreated }) => {
                         <input
                             type="email"
                             id="partnerEmail"
-                            value={partnerEmail}
-                            onChange={(e) => setPartnerEmail(e.target.value)}
+                            value={formData.partnerEmail}
+                            onChange={(e) => handleInputChange("partnerEmail", e.target.value)}
                             placeholder="partner@example.com"
                             required
                         />
-                        <small>Мы найдем пользователя по email адресу</small>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="partnerUserId">ID партнера (временно)</label>
-                        <input
-                            type="number"
-                            id="partnerUserId"
-                            value={formData.partnerUserId || ""}
-                            onChange={(e) => handleInputChange("partnerUserId", parseInt(e.target.value) || 0)}
-                            placeholder="Введите ID пользователя"
-                            required
-                        />
-                        <small>Временное поле для тестирования</small>
+                        <small>Партнёр получит приглашение в разделе «Приглашения в пары»</small>
                     </div>
                 </div>
 
@@ -181,7 +170,7 @@ const CreateCouple: React.FC<CreateCoupleProps> = ({ onCoupleCreated }) => {
                 <div className="form-actions">
                     <Button
                         type="submit"
-                        disabled={loading || !formData.partnerUserId}
+                        disabled={loading || !formData.partnerEmail.trim()}
                         className="create-button"
                     >
                         {loading ? "Отправка приглашения..." : "Отправить приглашение"}
