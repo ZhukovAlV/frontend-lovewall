@@ -9,6 +9,9 @@ services:
     container_name: lovewall-frontend
     ports:
       - "3000:3000"
+    environment:
+      - VITE_API_AUTH_SERVICE_URL=http://192.168.1.99:8080
+      - VITE_API_USER_SERVICE_URL=http://192.168.1.99:8081
     networks:
       - lovewall-network
     volumes:
