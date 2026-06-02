@@ -12,7 +12,9 @@ const CouplesPage: React.FC = () => {
             <div className="couples-page-header">
                 <div className="header-content">
                     <div className="header-text">
-                        <h1>Пары LoveWall</h1>
+                        <Link to="/" className="home-link">
+                            <h1>Пары LoveWall</h1>
+                        </Link>
                         <p>Откройте для себя истории любви нашего сообщества</p>
                     </div>
 
