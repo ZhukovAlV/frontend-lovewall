@@ -1,0 +1,125 @@
+.couple-wall {
+  margin-top: 30px;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+
+  &__header {
+    margin-bottom: 16px;
+
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #e91e63;
+    }
+  }
+
+  &__hint {
+    margin: 4px 0 0;
+    color: #9e6b7d;
+    font-size: 0.9rem;
+  }
+
+  &__composer {
+    margin-bottom: 20px;
+
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #f3c6d6;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #e91e63;
+      }
+    }
+  }
+
+  &__composer-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  &__error {
+    background: #fdecef;
+    color: #c2185b;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+  }
+
+  &__loading,
+  &__empty {
+    text-align: center;
+    color: #9e6b7d;
+    padding: 24px 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__item {
+    background: #fff5f8;
+    border-radius: 12px;
+    padding: 14px 16px;
+    border-left: 4px solid #f3c6d6;
+
+    &.is-own {
+      background: #fdeef4;
+      border-left-color: #e91e63;
+    }
+  }
+
+  &__item-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  &__author {
+    font-weight: 600;
+    color: #c2185b;
+  }
+
+  &__date {
+    font-size: 0.8rem;
+    color: #b08a98;
+  }
+
+  &__text {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #4a3640;
+    line-height: 1.5;
+  }
+
+  &__media {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .couple-wall {
+    padding: 16px;
+  }
+}
