@@ -10,8 +10,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - VITE_API_AUTH_SERVICE_URL=http://192.168.1.99:8080
-      - VITE_API_USER_SERVICE_URL=http://192.168.1.99:8081
+      - VITE_API_AUTH_SERVICE_URL=http://localhost:8080
+      - VITE_API_USER_SERVICE_URL=http://localhost:8081
     networks:
       - lovewall-network
     volumes:

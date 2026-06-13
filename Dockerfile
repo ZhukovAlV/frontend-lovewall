@@ -7,8 +7,13 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy source and build
+# Copy source files including environment configuration
 COPY . .
+
+# Copy production environment file
+COPY .env.production .env
+
+# Build with production mode
 RUN npm run build
 
 # ===== Production stage =====

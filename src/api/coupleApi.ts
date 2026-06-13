@@ -1,7 +1,17 @@
 import axios from 'axios';
 import { Couple, CreateCoupleRequest, UpdateCoupleRequest } from '../models';
 
-const API_BASE_URL = import.meta.env.VITE_API_USER_SERVICE_URL?.trim() || 'http://192.168.1.99:8081';
+// Определяем base URL в зависимости от окружения
+const getAPIBaseURL = () => {
+    // В production используем HTTPS
+    if (import.meta.env.MODE === 'production') {
+        return import.meta.env.VITE_API_USER_SERVICE_URL || "https://lovewall.art:8445";
+    }
+    // В development используем локальный адрес
+    return import.meta.env.VITE_API_USER_SERVICE_URL || "http://localhost:8081";
+};
+
+const API_BASE_URL = getAPIBaseURL();
 
 // Создать экземпляр axios с базовой конфигурацией
 const api = axios.create({
