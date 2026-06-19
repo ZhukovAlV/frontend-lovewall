@@ -3,11 +3,14 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Build-time API URL (Vite inlines VITE_* at build time, not at container runtime!)
-# Override at build with:  docker build --build-arg VITE_API_AUTH_SERVICE_URL=https://lovewall.art:8444 .
+# Build-time API URLs (Vite inlines VITE_* at build time, not at container runtime!)
 ARG VITE_API_AUTH_SERVICE_URL=https://lovewall.art:8444
+ARG VITE_API_USER_SERVICE_URL=https://lovewall.art:8445
+ARG VITE_API_WALL_SERVICE_URL=https://lovewall.art:8446
 ARG VITE_MODE=production
 ENV VITE_API_AUTH_SERVICE_URL=${VITE_API_AUTH_SERVICE_URL}
+ENV VITE_API_USER_SERVICE_URL=${VITE_API_USER_SERVICE_URL}
+ENV VITE_API_WALL_SERVICE_URL=${VITE_API_WALL_SERVICE_URL}
 ENV VITE_MODE=${VITE_MODE}
 
 # Install dependencies separately to leverage Docker layer caching
@@ -19,9 +22,9 @@ COPY . .
 
 # Write the build-time env file from build args so Vite picks it up regardless of
 # whatever .env.production was committed. This guarantees the produced bundle
-# contains the URL we want.
-RUN printf "VITE_API_AUTH_SERVICE_URL=%s\nVITE_MODE=%s\n" \
-      "$VITE_API_AUTH_SERVICE_URL" "$VITE_MODE" > .env.production
+# contains the URLs we want.
+RUN printf "VITE_API_AUTH_SERVICE_URL=%s\nVITE_API_USER_SERVICE_URL=%s\nVITE_API_WALL_SERVICE_URL=%s\nVITE_MODE=%s\n" \
+      "$VITE_API_AUTH_SERVICE_URL" "$VITE_API_USER_SERVICE_URL" "$VITE_API_WALL_SERVICE_URL" "$VITE_MODE" > .env.production
 
 # Build with production mode
 RUN npm run build
