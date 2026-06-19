@@ -3,11 +3,6 @@ import { Couple, CreateCoupleRequest, UpdateCoupleRequest } from '../models';
 
 // Определяем base URL в зависимости от окружения
 const getAPIBaseURL = () => {
-    // В production используем HTTPS
-    if (import.meta.env.MODE === 'production') {
-        return import.meta.env.VITE_API_USER_SERVICE_URL || "https://lovewall.art:8445";
-    }
-    // В development используем локальный адрес
     return import.meta.env.VITE_API_USER_SERVICE_URL || "http://localhost:8081";
 };
 

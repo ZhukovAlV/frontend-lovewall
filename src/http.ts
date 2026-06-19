@@ -2,11 +2,6 @@ import axios from "axios";
 
 // Определяем base URL в зависимости от окружения
 const getBaseURL = () => {
-    // В production используем HTTPS
-    if (import.meta.env.MODE === 'production') {
-        return import.meta.env.VITE_API_AUTH_SERVICE_URL || "https://lovewall.art:8444";
-    }
-    // В development используем локальный адрес
     return import.meta.env.VITE_API_AUTH_SERVICE_URL || "http://localhost:8080";
 };
 

@@ -2,9 +2,6 @@ import axios from "axios";
 import { CreateWallMessage, WallFilters, WallMessage, Comment, CreateCommentRequest } from "../models";
 
 const getWallServiceURL = () => {
-    if (import.meta.env.MODE === 'production') {
-        return import.meta.env.VITE_API_WALL_SERVICE_URL || "https://lovewall.art:8446";
-    }
     return import.meta.env.VITE_API_WALL_SERVICE_URL || "http://localhost:8082";
 };
 

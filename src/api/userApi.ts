@@ -2,9 +2,6 @@ import axios from "axios";
 import { User } from "../models";
 
 const getUserServiceURL = () => {
-    if (import.meta.env.MODE === 'production') {
-        return import.meta.env.VITE_API_USER_SERVICE_URL || "https://lovewall.art:8445";
-    }
     return import.meta.env.VITE_API_USER_SERVICE_URL || "http://localhost:8081";
 };
 
