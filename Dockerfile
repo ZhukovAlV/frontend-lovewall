@@ -4,10 +4,6 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Build-time API URLs (Vite inlines VITE_* at build time, not at container runtime!)
-ARG VITE_API_AUTH_SERVICE_URL=https://lovewall.art:8444
-ARG VITE_API_USER_SERVICE_URL=https://lovewall.art:8445
-ARG VITE_API_WALL_SERVICE_URL=https://lovewall.art:8446
-ARG VITE_MODE=production
 ENV VITE_API_AUTH_SERVICE_URL=${VITE_API_AUTH_SERVICE_URL}
 ENV VITE_API_USER_SERVICE_URL=${VITE_API_USER_SERVICE_URL}
 ENV VITE_API_WALL_SERVICE_URL=${VITE_API_WALL_SERVICE_URL}
